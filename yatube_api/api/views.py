@@ -1,6 +1,7 @@
 from posts.models import Comment, Follow, Group, Post
 from rest_framework import viewsets
 
+from .permissions import IsAuthorOrReadOnly, ReadOnly
 from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
                           PostSerializer)
 
@@ -12,10 +13,22 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    """Просмотр, создание, обновление и удаление постов."""
+    """Просмотр, создание, обновление и удаление постов (публикаций)."""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
 
+    def get_permissions(self):
+        """Метод, дающий доступ к получению информацию без аутентификации.
+        
+        При получении информации (GET / HEAD / OPTIONS запросы)
+        доступ разрешен всем пользователям, включая неаутентифицированных.
+        В остальных случаях доступ определяется основным пермишеном.
+        """
+        if self.action == 'retrieve':
+            return (ReadOnly(),)
+        return super().get_permissions()
+    
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
@@ -28,9 +41,9 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        # Receive post id from endpoint
+        # Получение id поста из эндпоинта
         post_id = self.kwargs.get("post_id")
-        # Select only the comments related to the post
+        # Выбор только комментариев, относящихся к посту
         return Comment.objects.filter(post=post_id)
 
     def perform_create(self, serializer):
