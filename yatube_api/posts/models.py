@@ -61,8 +61,8 @@ class Comment(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='comments',
-        verbose_name='Автор поста',
-        help_text='Автор комментируемого поста'
+        verbose_name='Автор комментария',
+        help_text='Автор комментария'
     )
     post = models.ForeignKey(
         Post,
@@ -114,3 +114,5 @@ class Follow(models.Model):
                 check=~models.Q(user=models.F("following")),
             )
         ]
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
