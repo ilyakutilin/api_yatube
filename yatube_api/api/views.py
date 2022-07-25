@@ -25,7 +25,7 @@ class PostViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return (ReadOnly(),)
         return super().get_permissions()
-    
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
@@ -41,10 +41,10 @@ class CommentViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return (ReadOnly(),)
         return super().get_permissions()
-    
+
     def get_queryset(self):
-        # Получение поста
-        post=get_object_or_404(Post, id=self.kwargs.get("post_id"))
+        # Получение комментируемого поста
+        post = get_object_or_404(Post, id=self.kwargs.get("post_id"))
         # Выбор только комментариев, относящихся к посту
         return Comment.objects.filter(post=post)
 
@@ -62,7 +62,8 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 class CreateListViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
-                    viewsets.GenericViewSet):
+                        viewsets.GenericViewSet):
+    """Базовый вьюсет для списка объектов (GET) и создания нового (POST)."""
     pass
 
 
