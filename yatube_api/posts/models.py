@@ -111,7 +111,7 @@ class Follow(models.Model):
             ),
             models.CheckConstraint(
                 name='posts_follow_prevent_self_follow',
-                check=~models.Q(user=models.F("following")),
+                check=~models.Q(user=models.F('following')),
             )
         ]
         verbose_name = 'Подписка'
