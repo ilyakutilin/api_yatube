@@ -2,7 +2,7 @@
     Yatube API
 </h1>
 
-<h4 align="center">API для сервиса **Yatube**.</h4>
+<h4 align="center">API для сервиса Yatube.</h4>
 
 
 ## Основные функции
