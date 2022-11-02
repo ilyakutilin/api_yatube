@@ -1,64 +1,41 @@
-### Описание:
+<h1 align="center">
+    Yatube API
+</h1>
 
-* * *
+<h4 align="center">API для сервиса **Yatube**.</h4>
 
-API для сервиса **Yatube**.
 
-Основные функции:
+## Основные функции
 
-- все операции с публикациями и комментариями к ним
-- просмотр информации о группах
-- просмотр и оформление подписок на авторов, поиск авторов
+-   все операции с публикациями и комментариями к ним
+-   просмотр информации о группах
+-   просмотр и оформление подписок на авторов, поиск авторов
 
 Аутентификация по JWT токену.
 
-### Как запустить проект:
+## Установка и запуск
 
-* * *
+```bash
+# Клонировать репозиторий и перейти в него в командной строке:
+$ git clone https://github.com/ilyakutilin/api_yatube.git
+$ cd api_yatube
 
-Клонировать репозиторий и перейти в него в командной строке:
+# Cоздать и активировать виртуальное окружение:
+$ python3 -m venv env
+$ source env/bin/activate
 
-```
-git clone https://github.com/ilyakutilin/api_final_yatube.git
-```
+# Установить зависимости:
+$ python3 -m pip install --upgrade pip
+$ pip install -r requirements.txt
 
-```
-cd api_final_yatube
-```
+# Выполнить миграции:
+$ python3 manage.py migrate
 
-Cоздать и активировать виртуальное окружение:
-
-```
-python3 -m venv env
-```
-
-```
-source env/bin/activate
+# Запустить проект:
+$ python3 manage.py runserver
 ```
 
-Установить зависимости из файла requirements.txt:
-
-```
-python3 -m pip install --upgrade pip
-```
-
-```
-pip install -r requirements.txt
-```
-
-Выполнить миграции:
-
-```
-python3 manage.py migrate
-```
-
-Запустить проект:
-
-```
-python3 manage.py runserver
-```
-
-### Список возможных запросов к API:
+## Список возможных запросов к API:
 
 (Примечание: полная документация доступна по адресу `/redoc)`
 
